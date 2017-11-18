@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
         }
         return null;
     }
-//
+
     /*public void clickLights(View view) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             try {
