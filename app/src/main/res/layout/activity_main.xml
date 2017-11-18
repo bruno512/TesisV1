@@ -1,69 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.soruco.bruno.tesisv1.MainActivity">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context="com.soruco.bruno.tesisv1.MainActivity">
 
-    <ToggleButton
-        android:id="@+id/buttonLights"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/buttonAction"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="135dp"
-        android:layout_marginEnd="162dp"
-        android:layout_marginTop="132dp"
-        android:onClick="clickLights"
-        android:text="Luces"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/buttonSound"
-        app:layout_constraintTop_toBottomOf="@+id/buttonSound"/>
+<Button
+    android:id="@+id/btn_todoe"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentStart="true"
+    android:layout_centerVertical="true"
+    android:layout_marginStart="40dp"
+    android:onClick="encender"
+    android:text="Encender" />
 
-    <Button
-        android:id="@+id/buttonAction"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_marginBottom="100dp"
-        android:layout_marginStart="134dp"
-        android:layout_marginTop="51dp"
-        android:onClick="clickVibrate"
-        android:text="Vibrar"
-        app:layout_constraintBottom_toTopOf="@+id/buttonSound"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+<Button
+    android:id="@+id/btn_todoa"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignBaseline="@+id/btn_todoe"
+    android:layout_alignBottom="@+id/btn_todoe"
+    android:layout_alignParentEnd="true"
+    android:layout_marginEnd="47dp"
+    android:onClick="apagar"
+    android:text="Apagar" />
 
-    <Button
-        android:id="@+id/buttonActionStop"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_marginBottom="100dp"
-        android:layout_marginStart="134dp"
-        android:layout_marginTop="51dp"
-        android:onClick="clickStopVibrate"
-        android:text="Stop Vibrate"
-        app:layout_constraintBottom_toTopOf="@+id/buttonSound"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-
-    <Button
-        android:id="@+id/buttonSound"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/buttonAction"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="100dp"
-        android:onClick="clickSound"
-        android:text="Sonido"
-        app:layout_constraintStart_toStartOf="@+id/buttonAction"
-        app:layout_constraintTop_toBottomOf="@+id/buttonAction"
-        />
-
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>

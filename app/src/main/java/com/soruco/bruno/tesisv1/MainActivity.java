@@ -1,6 +1,9 @@
 package com.soruco.bruno.tesisv1;
 
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.os.Build;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.hardware.camera2.CameraCharacteristics;
@@ -21,7 +24,32 @@ public class MainActivity extends AppCompatActivity {
 
     private CameraManager mCameraManager;
     private String mCameraId=null;
-    private ToggleButton mButtonLights;
+    AudioManager audioManager;
+    MediaPlayer mediaPlayer;
+    Button btn_encendido;
+    Button btn_apagado;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        /*mButtonLights = (ToggleButton)findViewById(R.id.buttonLights);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            mCameraManager = (CameraManager) this.getSystemService(Context.CAMERA_SERVICE);
+            mCameraId = getCameraId();
+            if (mCameraId==null) {
+                mButtonLights.setEnabled(false);
+            } else {
+                mButtonLights.setEnabled(true);
+            }
+        } else {
+            mButtonLights.setEnabled(false);
+        }*/
+
+        btn_encendido=(Button)findViewById(R.id.btn_todoe);
+        btn_apagado=(Button)findViewById(R.id.btn_todoa);
+    }
 
     private String getCameraId() {
         try {
@@ -39,26 +67,8 @@ public class MainActivity extends AppCompatActivity {
         }
         return null;
     }
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
-        mButtonLights = (ToggleButton)findViewById(R.id.buttonLights);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            mCameraManager = (CameraManager) this.getSystemService(Context.CAMERA_SERVICE);
-            mCameraId = getCameraId();
-            if (mCameraId==null) {
-                mButtonLights.setEnabled(false);
-            } else {
-                mButtonLights.setEnabled(true);
-            }
-        } else {
-            mButtonLights.setEnabled(false);
-        }
-    }
-
-    public void clickLights(View view) {
+    /*public void clickLights(View view) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             try {
                 mCameraManager.setTorchMode(mCameraId, mButtonLights.isChecked());
@@ -66,35 +76,36 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
+    }*/
+
+    public void encender(View v) {
+        mediaPlayer = MediaPlayer.create(getApplication(), R.raw.sonido_humocorto);
+        mediaPlayer.start();
+        mediaPlayer.setLooping(true);
+        btn_encendido.setEnabled(false);
+        audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+        audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, 3, 0);
+        Vibrator vi = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        long[] pattern = {0, 1000, 1000};
+        vi.vibrate(pattern, 0);
+        esperarysonar(4000);
     }
 
-    public void clickVibrate(View view) {
-        // Get instance of Vibrator from current Context
-        Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-
-        // Start without a delay
-        // Vibrate for 100 milliseconds
-        // Sleep for 1000 milliseconds
-        long[] pattern = {0, 100, 1000};
-
-        // The '0' here means to repeat indefinitely
-        // '0' is actually the index at which the pattern keeps repeating from (the start)
-        // To repeat the pattern from any other point, you could increase the index, e.g. '1'
-        v.vibrate(pattern, 0);
-        //((Vibrator)getSystemService(VIBRATOR_SERVICE)).vibrate(10000);
+    public void esperarysonar(int milisegundos) {
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                audioManager.setStreamVolume(AudioManager.STREAM_MUSIC,10, 0);
+            }
+        }, milisegundos);
     }
 
-    public void clickStopVibrate(View view) {
-        // Get instance of Vibrator from current Context
-        Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        v.cancel();
-    }
-
-
-    public void clickSound(View view) {
-        Uri notificationSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-        Ringtone ringtone = RingtoneManager.getRingtone(getApplicationContext(), notificationSoundUri);
-        ringtone.play();
+    public void apagar(View view) {
+        mediaPlayer.stop();
+        mediaPlayer.release();
+        Vibrator vi = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        vi.cancel();
+        btn_encendido.setEnabled(true);
     }
 }
 
