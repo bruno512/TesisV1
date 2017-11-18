@@ -17,7 +17,7 @@
         android:layout_marginEnd="162dp"
         android:layout_marginTop="132dp"
         android:onClick="clickLights"
-        android:text="Lights"
+        android:text="Luces"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/buttonSound"
@@ -33,7 +33,22 @@
         android:layout_marginStart="134dp"
         android:layout_marginTop="51dp"
         android:onClick="clickVibrate"
-        android:text="Action"
+        android:text="Vibrar"
+        app:layout_constraintBottom_toTopOf="@+id/buttonSound"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <Button
+        android:id="@+id/buttonActionStop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_marginBottom="100dp"
+        android:layout_marginStart="134dp"
+        android:layout_marginTop="51dp"
+        android:onClick="clickStopVibrate"
+        android:text="Stop Vibrate"
         app:layout_constraintBottom_toTopOf="@+id/buttonSound"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
@@ -46,7 +61,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="100dp"
         android:onClick="clickSound"
-        android:text="Sound"
+        android:text="Sonido"
         app:layout_constraintStart_toStartOf="@+id/buttonAction"
         app:layout_constraintTop_toBottomOf="@+id/buttonAction"
         />
