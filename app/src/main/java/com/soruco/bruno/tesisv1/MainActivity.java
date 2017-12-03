@@ -78,6 +78,21 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
+        for (int i=500;i<10000;i+=500){
+            apagarflash(i);
+            encenderflash(i+500);
+        }
+
+       /* apagarflash(1500);
+        encenderflash(2000);
+        apagarflash(2500);
+        encenderflash(3000);
+        apagarflash(3500);
+        encenderflash(4000);
+        apagarflash(4500);
+        encenderflash(5000);*/
+
+
         //Encendemos el sonido
         mediaPlayer = MediaPlayer.create(getApplication(), R.raw.sonido_humocorto);
         mediaPlayer.start();
@@ -91,10 +106,8 @@ public class MainActivity extends AppCompatActivity {
         long[] pattern = {0, 1000, 1000};
         vi.vibrate(pattern, 0);
 
-        //Repetimos el sonido cada 4 seg
+        //Aumentamos el volumen en 4 seg
         esperarysonar(4000);
-
-
     }
 
     public void esperarysonar(int milisegundos) {
@@ -105,6 +118,38 @@ public class MainActivity extends AppCompatActivity {
             }
         }, milisegundos);
     }
+
+    public void apagarflash(int milisegundos) {
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    try {
+                        mCameraManager.setTorchMode(mCameraId, false);
+                    } catch (CameraAccessException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }, milisegundos);
+    }
+
+    public void encenderflash(int milisegundos) {
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    try {
+                        mCameraManager.setTorchMode(mCameraId, true);
+                    } catch (CameraAccessException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }, milisegundos);
+    }
+
+
 
     public void apagar(View view) {
         //Apagamos sonido
